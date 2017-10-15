@@ -20,11 +20,11 @@ export class TaskList {
       this.tasks.push({title: theNewTask, status: 'open'});
     }
   }
-  markAsDone(slidingItem: ItemSliding, task: any) {
+  markAsDone(slidingItem: ItemSliding, task: Task) {
     task.status = "done";
     slidingItem.close();
   }
-  removeTask(slidingItem: ItemSliding, task: any) {
+  removeTask(slidingItem: ItemSliding, task: Task) {
     task.status = "removed";
     let index = this.tasks.indexOf(task);
     if (index > -1) {
