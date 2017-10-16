@@ -5,10 +5,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
-import { TaskList } from '../pages/tasklist/tasklist';
+import { TaskListPage } from '../pages/tasklist/tasklist';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+
+import { Dialogs } from '@ionic-native/dialogs';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyCsq7ZJKUu4QvKY9zUTdVI2TK5PXwyxiZs",
@@ -22,7 +24,7 @@ export const firebaseConfig = {
 @NgModule({
   declarations: [ 
     MyApp,
-    TaskList
+    TaskListPage
   ],
   imports: [
     BrowserModule,
@@ -33,11 +35,12 @@ export const firebaseConfig = {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    TaskList
+    TaskListPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    Dialogs,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

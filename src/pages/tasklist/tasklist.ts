@@ -1,23 +1,28 @@
 import { Component } from '@angular/core';
 import { NavController, ItemSliding } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { Dialogs } from '@ionic-native/dialogs';
 
 @Component({
   selector: 'page-tasklist',
   templateUrl: 'tasklist.html'
 })
-export class TaskList {
+export class TaskListPage {
   tasks: FirebaseListObservable<any[]>;
   
-  constructor(public navCtrl: NavController, public af: AngularFireDatabase) {
+  constructor(public navCtrl: NavController, public af: AngularFireDatabase, public dialogs: Dialogs) {
     this.tasks= af.list('/tasks');
   }
   
   addItem() {
-    let theNewTask: string = prompt("New task");
-    if (theNewTask !== '') {
-      this.tasks.push({title: theNewTask, status: 'open'});
-    }
+    this.dialogs.prompt('Add a task', 'Ionic2Do',['Ok', 'Cancel'], '').then(
+      theResult => {
+        if ((theResult.buttonIndex ==1)
+          && (theResult.input1 !== '')) {
+            this.tasks.push({ title: theResult.input1, status: 'open'});
+          }
+      }
+    )
   }
   markAsDone(slidingItem: ItemSliding, task: Task) {
     this.tasks.update(task.$key, {status: 'done'});
